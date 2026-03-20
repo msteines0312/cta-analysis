@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python notebooks/04_model.py)",
+      "Bash(python c:/Users/mstei/Documents/cta-analysis/notebooks/05_tableau_prep.py --help)",
+      "Bash(python -c \":*)",
+      "Skill(humanizer)",
+      "Skill(humanizer:*)"
+    ]
+  }
+}

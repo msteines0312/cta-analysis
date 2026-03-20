@@ -1,0 +1,22 @@
+# Environment
+.env
+venv/
+.venv/
+__pycache__/
+*.pyc
+
+# Data files — never commit raw or processed data
+data/
+
+# Outputs — figures and exports are generated, not source
+outputs/
+
+# Project-specific — generated or internal, not needed on GitHub
+docs/
+tasks/
+src/
+
+# OS / editor noise
+.DS_Store
+Thumbs.db
+.vscode/
