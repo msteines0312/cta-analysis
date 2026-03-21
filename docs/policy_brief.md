@@ -16,7 +16,7 @@ The CTA's bus system is at 67% of its pre-COVID ridership as of 2024, and that n
 
 Between 2018 and 2019, the CTA averaged 652,921 bus riders per day. By 2022 that had fallen to 437,428, a loss of roughly 215,000 daily riders. Two years later, the system is still at 67% of its pre-COVID baseline.
 
-![Figure 1: CTA Bus System Daily Ridership (2018–2024)](../outputs/figures/cropped_tableau_trend.png)
+![Figure 1: CTA Bus System Daily Ridership (2018–2024)](brief_images/fig1_system_trend.png)
 *Figure 1: CTA Bus System Daily Ridership (2018–2024). Orange = pre-COVID, blue = post-COVID recovery.*
 
 The headline recovery figure hides more than it reveals. System-wide averages are dominated by the highest-volume routes, and those routes have recovered reasonably well. The problem sits elsewhere, in lower-volume routes serving specific neighborhoods, where ridership has stalled or continued falling long after the acute crisis ended.
@@ -69,7 +69,7 @@ The Stable tier is reassuring but geographically concentrated. High-ridership ro
 
 The High Risk tier is the concern. 43 bus routes and 48 rail stations are carrying significantly less ridership than before COVID with no clear sign of improvement. That is one in three routes in this dataset.
 
-![Figure 2: Bus Route Recovery vs. Ridership Lost](../outputs/figures/cropped_tableau_scatter.png)
+![Figure 2: Bus Route Recovery vs. Ridership Lost](brief_images/fig2_recovery_scatter.png)
 *Figure 2: Each dot is one route. Position = drop magnitude vs. recovery rate. Color = tier (green = Stable, orange = Moderate, red = High Risk). Size = pre-COVID ridership volume.*
 
 ### 3b. Underutilized routes by tier
@@ -84,10 +84,10 @@ These aren't routes where demand evaporated because neighborhoods changed. The d
 
 One route worth calling out specifically is Route 52. With roughly 5,000 daily riders in the post-COVID period, it doesn't look like a struggling route at first glance. But before COVID it was carrying closer to 10,000. That's a 49.3% recovery rate, less than half its former ridership. Because the scoring model measures proportional loss rather than raw volume, Route 52 ranks as High Risk. A route that once served 10,000 people and now serves 5,000 isn't fine. It has a hole in it.
 
-![Figure 3: Top 20 Most Underutilized Bus Routes](../outputs/figures/cropped_tableau-busleaderboard.png)
+![Figure 3: Top 20 Most Underutilized Bus Routes](brief_images/fig3_bus_leaderboard.png)
 *Figure 3: Top 20 bus routes ranked by composite underutilization score (0–100). Darker red = higher risk.*
 
-![Figure 4: Pre vs. Post Ridership](../outputs/figures/cropped_tableau-prevspost.png)
+![Figure 4: Pre vs. Post Ridership](brief_images/fig4_pre_vs_post.png)
 *Figure 4: Blue = post-COVID average daily riders. Gray = pre-COVID baseline. The gap between them is what was lost.*
 
 **High Risk rail stations**
@@ -100,7 +100,7 @@ A drop to zero at two stations on a major north-south line isn't a demand story.
 
 The middle tier is less dramatic but harder to read. Recovery rates range from roughly 40% to 65% of pre-COVID levels. Some routes here are trending upward. Others have been flat since 2022. Without service-level data, it's hard to say whether these routes are on a path back toward their old ridership or whether 50–60% is the new normal.
 
-![Figure 5: Post-COVID Ridership by Day Type](../outputs/figures/cropped_tableau-daybyday.png)
+![Figure 5: Post-COVID Ridership by Day Type](brief_images/fig5_day_type.png)
 *Figure 5: Stacked bars show how ridership breaks down by day type. Routes like 156 show stronger weekend demand relative to weekday — a restructuring signal.*
 
 Route 156 is the clearest restructuring candidate in the dataset. Weekday ridership has barely recovered, but Saturday and Sunday boardings are holding relatively steady. The riders are still there; they're just not commuting. Running a standard weekday-heavy schedule for a route that has shifted toward weekend use is a mismatch between service design and actual demand. This route probably doesn't need to be cut. It needs to be redesigned.
