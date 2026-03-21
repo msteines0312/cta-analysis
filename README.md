@@ -1,11 +1,15 @@
 # CTA Route Utilization Analysis
 Identifies the most underutilized Chicago Transit Authority bus routes and rail stations by comparing pre-COVID (2018–2019) and post-COVID (2022–2024) ridership data using a composite scoring model.
 
+## Interactive Dashboard
+[View on Tableau Public](https://public.tableau.com/app/profile/matt.steines/viz/CTABusRouteUnderutilizationAnalysis/Dashboard1)
+
 ## Tech Stack
 - Python 3
 - pandas, numpy — data processing and aggregation
 - matplotlib — visualizations
 - requests, python-dotenv — API access via Chicago Data Portal (Socrata SODA API)
+- Tableau Public — interactive dashboards
 
 ## How to Run
 
