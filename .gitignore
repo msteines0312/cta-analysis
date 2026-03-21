@@ -8,11 +8,10 @@ __pycache__/
 # Data files — never commit raw or processed data
 data/
 
-# Outputs — figures and exports are generated, not source
-outputs/
+# Outputs — exports are generated, not source; figures are committed
+outputs/exports/
 
-# Project-specific — generated or internal, not needed on GitHub
-docs/
+# Project-specific — tasks and src are internal
 tasks/
 src/
 
