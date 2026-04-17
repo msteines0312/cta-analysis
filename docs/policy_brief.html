@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Filling the Gaps: Identifying Underutilized CTA Bus and Rail Routes</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Georgia', serif;
+      font-size: 17px;
+      line-height: 1.75;
+      color: #1a1a1a;
+      background: #f5f4f0;
+    }
+
+    /* Top bar */
+    .topbar {
+      background: #1a1a2e;
+      color: #fff;
+      padding: 10px 0;
+      text-align: center;
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 13px;
+      letter-spacing: 0.05em;
+    }
+    .topbar a {
+      color: #a8c4e0;
+      text-decoration: none;
+      margin: 0 12px;
+    }
+    .topbar a:hover { text-decoration: underline; }
+
+    /* Hero header */
+    .hero {
+      background: #1a1a2e;
+      color: #fff;
+      padding: 64px 24px 52px;
+      text-align: center;
+    }
+    .hero .label {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: #7fa8cc;
+      margin-bottom: 18px;
+    }
+    .hero h1 {
+      font-size: clamp(26px, 4vw, 42px);
+      font-weight: 700;
+      line-height: 1.2;
+      max-width: 780px;
+      margin: 0 auto 24px;
+    }
+    .hero .meta {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 14px;
+      color: #8a9ab5;
+      line-height: 1.9;
+    }
+    .hero .meta strong { color: #c4d4e8; }
+
+    /* Stat pills */
+    .stats {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 16px;
+      padding: 36px 24px;
+      background: #fff;
+      border-bottom: 1px solid #e4e0d8;
+    }
+    .stat-pill {
+      text-align: center;
+      padding: 16px 28px;
+      border: 1px solid #e0dcd4;
+      border-radius: 6px;
+      min-width: 140px;
+    }
+    .stat-pill .number {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 30px;
+      font-weight: 700;
+      color: #1a1a2e;
+      line-height: 1;
+    }
+    .stat-pill .number.risk { color: #c0392b; }
+    .stat-pill .desc {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 12px;
+      color: #777;
+      margin-top: 6px;
+      letter-spacing: 0.03em;
+    }
+
+    /* Main layout */
+    .content {
+      max-width: 780px;
+      margin: 0 auto;
+      padding: 56px 24px 80px;
+    }
+
+    /* Executive summary callout */
+    .exec-summary {
+      background: #fff;
+      border-left: 4px solid #1a1a2e;
+      padding: 28px 32px;
+      margin-bottom: 52px;
+      border-radius: 0 6px 6px 0;
+    }
+    .exec-summary .summary-label {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: #1a1a2e;
+      margin-bottom: 12px;
+    }
+    .exec-summary p {
+      font-size: 16px;
+      color: #2c2c2c;
+      line-height: 1.8;
+    }
+
+    /* Sections */
+    h2 {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #1a1a2e;
+      border-bottom: 2px solid #1a1a2e;
+      padding-bottom: 8px;
+      margin: 52px 0 20px;
+    }
+    h3 {
+      font-family: 'Georgia', serif;
+      font-size: 19px;
+      font-weight: 700;
+      color: #1a1a2e;
+      margin: 36px 0 14px;
+    }
+
+    p { margin-bottom: 18px; }
+
+    /* Lists */
+    ul {
+      margin: 0 0 20px 0;
+      padding-left: 22px;
+    }
+    ul li {
+      margin-bottom: 8px;
+      line-height: 1.7;
+    }
+
+    /* Figures */
+    figure {
+      margin: 36px 0;
+      background: #fff;
+      border: 1px solid #e4e0d8;
+      border-radius: 6px;
+      overflow: hidden;
+    }
+    figure img {
+      width: 100%;
+      display: block;
+    }
+    figcaption {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 13px;
+      color: #666;
+      padding: 12px 16px;
+      background: #faf9f7;
+      border-top: 1px solid #e4e0d8;
+      line-height: 1.5;
+    }
+
+    /* Table */
+    .table-wrap {
+      overflow-x: auto;
+      margin: 24px 0 32px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 15px;
+    }
+    thead tr {
+      background: #1a1a2e;
+      color: #fff;
+    }
+    thead th {
+      padding: 12px 18px;
+      text-align: left;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+    }
+    tbody tr:nth-child(even) { background: #faf9f7; }
+    tbody tr:nth-child(odd) { background: #fff; }
+    tbody td {
+      padding: 11px 18px;
+      border-bottom: 1px solid #e8e4dc;
+    }
+    tbody tr.total-row {
+      background: #f0ede6;
+      font-weight: 700;
+    }
+
+    /* Tier badges inline */
+    .badge {
+      display: inline-block;
+      padding: 2px 9px;
+      border-radius: 3px;
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+    }
+    .badge-risk { background: #fce8e6; color: #c0392b; }
+    .badge-mod  { background: #fef3e2; color: #d35400; }
+    .badge-stable { background: #e8f5e9; color: #1e8449; }
+
+    /* Recommendations */
+    .rec-block {
+      background: #fff;
+      border: 1px solid #e4e0d8;
+      border-radius: 6px;
+      padding: 28px 32px;
+      margin: 28px 0;
+    }
+    .rec-block .rec-num {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #888;
+      margin-bottom: 8px;
+    }
+    .rec-block h3 {
+      margin-top: 0;
+      font-size: 18px;
+    }
+    .rec-block p:last-child { margin-bottom: 0; }
+
+    /* Footer */
+    .footnote {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 13px;
+      color: #888;
+      border-top: 1px solid #ddd;
+      padding-top: 24px;
+      margin-top: 52px;
+      line-height: 1.7;
+    }
+
+    /* Tableau button */
+    .tableau-cta {
+      display: inline-block;
+      margin: 8px 0 32px;
+      padding: 12px 24px;
+      background: #1a1a2e;
+      color: #fff;
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 14px;
+      font-weight: 600;
+      text-decoration: none;
+      border-radius: 4px;
+      letter-spacing: 0.03em;
+      transition: background 0.2s;
+    }
+    .tableau-cta:hover { background: #2e2e50; }
+
+    @media (max-width: 600px) {
+      .stats { gap: 10px; }
+      .stat-pill { min-width: 120px; padding: 12px 16px; }
+      .exec-summary { padding: 20px 20px; }
+      .rec-block { padding: 20px 20px; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="topbar">
+    <a href="https://public.tableau.com/app/profile/matt.steines/viz/CTABusRouteUnderutilizationAnalysis/Dashboard1" target="_blank">View Interactive Dashboard</a>
+    <a href="https://github.com/msteines0312/cta-analysis" target="_blank">GitHub</a>
+  </div>
+
+  <header class="hero">
+    <div class="label">Policy Brief, March 2026</div>
+    <h1>Filling the Gaps: Identifying Underutilized CTA Bus and Rail Routes</h1>
+    <div class="meta">
+      <strong>Matt Steines</strong><br>
+      Data sources: Chicago Data Portal: CTA Daily Boarding Totals, Bus Ridership by Route, Rail Ridership by Station
+    </div>
+  </header>
+
+  <div class="stats">
+    <div class="stat-pill">
+      <div class="number">67%</div>
+      <div class="desc">System recovery rate</div>
+    </div>
+    <div class="stat-pill">
+      <div class="number risk">43</div>
+      <div class="desc">High Risk bus routes</div>
+    </div>
+    <div class="stat-pill">
+      <div class="number risk">48</div>
+      <div class="desc">High Risk rail stations</div>
+    </div>
+    <div class="stat-pill">
+      <div class="number">215K</div>
+      <div class="desc">Daily riders lost</div>
+    </div>
+  </div>
+
+  <main class="content">
+
+    <div class="exec-summary">
+      <div class="summary-label">Executive Summary</div>
+      <p>The CTA's bus system is at 67% of its pre-COVID ridership as of 2024, and that number has barely moved in two years. The system-wide figure looks like progress. Route-level data is less encouraging. This analysis scored 128 bus routes and 143 rail stations using six years of daily ridership data from the Chicago Data Portal and found that 43 bus routes and 48 rail stations qualify as High Risk, carrying a fraction of their pre-COVID ridership with no trend toward recovery. Two Red Line stations, Berwyn and Lawrence, recorded near-zero boardings across all of 2022&ndash;2024 after averaging nearly 3,000 daily riders each before COVID. That's not a demand story. The first step is figuring out why these routes haven't recovered: auditing service levels on High Risk corridors, cross-referencing with equity data to find the communities most exposed, and treating the gap as a policy problem that requires a specific answer.</p>
+    </div>
+
+    <h2>1. Background and context</h2>
+
+    <p>Between 2018 and 2019, the CTA averaged 652,921 bus riders per day. By 2022 that had fallen to 437,428, a loss of roughly 215,000 daily riders. Two years later, the system is still at 67% of its pre-COVID baseline.</p>
+
+    <figure>
+      <img src="brief_images/fig1_system_trend.png" alt="CTA Bus System Daily Ridership 2018-2024" />
+      <figcaption>Figure 1: CTA Bus System Daily Ridership (2018&ndash;2024). Orange = pre-COVID, blue = post-COVID recovery.</figcaption>
+    </figure>
+
+    <p>The headline recovery figure hides more than it reveals. System-wide averages are dominated by the highest-volume routes, and those routes have recovered reasonably well. The problem sits elsewhere, in lower-volume routes serving specific neighborhoods, where ridership has stalled or continued falling long after the acute crisis ended.</p>
+
+    <p>Routes running at a fraction of their former ridership still cost money to operate. The CTA received billions in federal pandemic relief through the CARES Act and the American Rescue Plan, which kept service levels intact through the worst of the crisis. Those funds are finite and largely spent. The agency is now facing a structural budget gap with fewer riders, less fare revenue, and no emergency lifeline to fall back on. The pressure to cut underperforming routes isn't hypothetical. It's the next conversation. For residents in neighborhoods where the bus is the primary way to reach work, a clinic, or a grocery store, the difference between a route that gets cut and one that gets restructured is not abstract.</p>
+
+    <p>This analysis asked a simple question before that conversation happens: which CTA routes are underperforming, and how badly?</p>
+
+    <h2>2. Data and methodology</h2>
+
+    <p>The analysis draws on three datasets published by the Chicago Transit Authority through the Chicago Data Portal:</p>
+
+    <ul>
+      <li>CTA Daily Boarding Totals: system-wide ridership by date</li>
+      <li>Bus Ridership by Route: daily boardings by route and day type (weekday, Saturday, Sunday/holiday)</li>
+      <li>Rail Ridership by Station: daily boardings by station</li>
+    </ul>
+
+    <p>Two time windows define the comparison: 2018&ndash;2019 as the pre-COVID baseline, and 2022&ndash;2024 as the recovery period. The years 2020 and 2021 were excluded from both windows. They represent the acute crisis period, when ridership collapsed system-wide and many routes were running on emergency schedules. Including those years would muddy both the baseline and the recovery picture. The goal is to compare normal operations before COVID against what the system looks like now, not to measure the depth of the trough.</p>
+
+    <p>Each bus route and rail station was scored on a 0&ndash;100 composite scale based on four factors:</p>
+
+    <ul>
+      <li>Post-COVID ridership volume (average daily boardings, 2022&ndash;2024)</li>
+      <li>Recovery rate (what percentage of pre-COVID ridership has returned)</li>
+      <li>Trend direction (whether ridership is still growing or has stalled through 2024)</li>
+      <li>Day type consistency (whether the route serves riders on weekdays and weekends, or only in narrow windows)</li>
+    </ul>
+
+    <p>One design choice worth flagging: the score measures proportional underperformance, not absolute ridership volume. A high-ridership route that has recovered only 50% of its former riders scores similarly to a low-ridership route in the same position. This is intentional. A large route that has lost half its riders represents a real failure of service delivery, regardless of how many riders it still has. Focusing only on low-volume routes would miss those cases entirely.</p>
+
+    <p>Routes were ranked by score and divided into three tiers: <span class="badge badge-risk">High Risk</span>, <span class="badge badge-mod">Moderate</span>, and <span class="badge badge-stable">Stable</span>. The tiers are relative to the rest of the CTA system, not to any external benchmark. A Stable route has recovered well compared to its peers; that doesn't necessarily mean it's back to full health.</p>
+
+    <p>One limitation worth naming: these datasets don't include service-level data: route frequency, hours of operation, or schedule changes. A route running every 30 minutes can't realistically attract the ridership of one running every 10 minutes, and this analysis can't separate demand-side decline from supply-side cuts. Where findings suggest a route has collapsed, that warrants direct investigation rather than a simple conclusion about demand.</p>
+
+    <h2>3. Findings</h2>
+
+    <h3>3a. The system-wide recovery gap</h3>
+
+    <p>Of the 128 bus routes with complete data in this analysis, roughly one-third sit in each tier:</p>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Tier</th>
+            <th>Bus routes</th>
+            <th>Rail stations</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="badge badge-risk">High Risk</span></td>
+            <td>43</td>
+            <td>48</td>
+          </tr>
+          <tr>
+            <td><span class="badge badge-mod">Moderate</span></td>
+            <td>42</td>
+            <td>47</td>
+          </tr>
+          <tr>
+            <td><span class="badge badge-stable">Stable</span></td>
+            <td>43</td>
+            <td>48</td>
+          </tr>
+          <tr class="total-row">
+            <td>Total</td>
+            <td>128</td>
+            <td>143</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p>The Stable tier is reassuring but geographically concentrated. High-ridership routes along major corridors (Western, Pulaski, Cottage Grove) have recovered to roughly 70&ndash;80% of pre-COVID levels and are trending upward. They carry a disproportionate share of total system ridership, which is why the top-line number looks better than the route-level picture.</p>
+
+    <p>The High Risk tier is the concern. 43 bus routes and 48 rail stations are carrying significantly less ridership than before COVID with no clear sign of improvement. That is one in three routes in this dataset.</p>
+
+    <figure>
+      <img src="brief_images/fig2_recovery_scatter.png" alt="Bus Route Recovery vs. Ridership Lost" />
+      <figcaption>Figure 2: Each dot is one route. Position = drop magnitude vs. recovery rate. Color = tier (green = Stable, orange = Moderate, red = High Risk). Size = pre-COVID ridership volume.</figcaption>
+    </figure>
+
+    <a class="tableau-cta" href="https://public.tableau.com/app/profile/matt.steines/viz/CTABusRouteUnderutilizationAnalysis/Dashboard1" target="_blank">Explore the interactive dashboard &rarr;</a>
+
+    <h3>3b. Underutilized routes by tier</h3>
+
+    <p><strong>High Risk bus routes</strong></p>
+
+    <p>The worst-scoring routes aren't low-volume routes that were always marginal. Several carried well over 1,000 daily riders before COVID.</p>
+
+    <p>Route 121 averaged 1,104 daily boardings in 2018&ndash;2019. In 2022&ndash;2024, that number is 300, a 73% decline with a recovery rate of 27.1%. Route 120 is nearly identical: from 801 daily riders to 215, recovering at 26.9%. Route 135 went from 3,186 daily riders to 1,289, recovering at 40.5%.</p>
+
+    <p>These aren't routes where demand evaporated because neighborhoods changed. The drop is too sharp and too consistent. Something happened to ridership on these routes during COVID and it hasn't come back.</p>
+
+    <p>One route worth calling out specifically is Route 52. With roughly 5,000 daily riders in the post-COVID period, it doesn't look like a struggling route at first glance. But before COVID it was carrying closer to 10,000. That's a 49.3% recovery rate, less than half its former ridership. Because the scoring model measures proportional loss rather than raw volume, Route 52 ranks as High Risk. A route that once served 10,000 people and now serves 5,000 isn't fine. It has a hole in it.</p>
+
+    <figure>
+      <img src="brief_images/fig3_bus_leaderboard.png" alt="Top 20 Most Underutilized Bus Routes" />
+      <figcaption>Figure 3: Top 20 bus routes ranked by composite underutilization score (0&ndash;100). Darker red = higher risk.</figcaption>
+    </figure>
+
+    <figure>
+      <img src="brief_images/fig4_pre_vs_post.png" alt="Pre vs. Post Ridership" />
+      <figcaption>Figure 4: Blue = post-COVID average daily riders. Gray = pre-COVID baseline. The gap between them is what was lost.</figcaption>
+    </figure>
+
+    <p><strong>High Risk rail stations</strong></p>
+
+    <p>Rail tells a more extreme version of the same story. Berwyn station on the Red Line averaged 2,845 daily boardings in 2018&ndash;2019. In the 2022&ndash;2024 period, it recorded zero. Lawrence station, also on the Red Line, averaged 2,762 daily boardings before COVID and similarly recorded near-zero in the recovery period.</p>
+
+    <p>A drop to zero at two stations on a major north-south line has nothing to do with changing rider behavior. Stations don't go from nearly 3,000 daily riders to nothing because people decided to drive. This almost certainly reflects a service disruption (renovation, closure, or a schedule gap) that the ridership data can't explain on its own. The data can tell us something stopped working at these stations. It can't tell us what.</p>
+
+    <p><strong>Moderate-tier routes</strong></p>
+
+    <p>The middle tier is less dramatic but harder to read. Recovery rates range from roughly 40% to 65% of pre-COVID levels. Some routes here are trending upward. Others have been flat since 2022. Without service-level data, it's hard to say whether these routes are on a path back toward their old ridership or whether 50&ndash;60% is the new normal.</p>
+
+    <figure>
+      <img src="brief_images/fig5_day_type.png" alt="Post-COVID Ridership by Day Type" />
+      <figcaption>Figure 5: Stacked bars show how ridership breaks down by day type. Routes like 156 show stronger weekend demand relative to weekday, which points to restructuring rather than cuts.</figcaption>
+    </figure>
+
+    <p>Route 156 is the clearest restructuring candidate in the dataset. Weekday ridership has barely recovered, but Saturday and Sunday boardings are holding relatively steady. The riders are still there; they're just not commuting. Running a standard weekday-heavy schedule for a route that has shifted toward weekend use is a mismatch between service design and actual demand. This route probably doesn't need to be cut. It needs to be redesigned.</p>
+
+    <p>Route 52 tells a different story. Unlike Route 156, ridership on Route 52 has collapsed across every day type: weekdays, Saturdays, and Sundays alike. There's no scheduling explanation for that. The riders haven't shifted to weekends; they've left. Combined with its proportional ranking as High Risk, Route 52 is one of the routes that most warrants direct investigation before any investment decision is made.</p>
+
+    <p><strong>Stable routes</strong></p>
+
+    <p>The best-performing routes are concentrated in the highest-density corridors and aren't a cause for concern. What they are is a useful reference point: the CTA's strongest routes sit at 70&ndash;80% of pre-COVID levels. Its weakest are at 25&ndash;40%. Two years into the recovery period, that gap hasn't moved.</p>
+
+    <h2>4. Recommendations</h2>
+
+    <div class="rec-block">
+      <div class="rec-num">Recommendation 1</div>
+      <h3>Audit service levels on all 43 High Risk bus routes before cutting any of them</h3>
+      <p>This analysis identifies 43 High Risk bus routes based on ridership outcomes, but it can't determine whether low boardings reflect low demand or inadequate service. A route running every 30 minutes with unreliable on-time performance won't attract riders, and the data here looks identical to a route where neighborhood demand has genuinely declined. Cutting a route that's underperforming because of poor service quality makes the problem worse and damages trust with the riders who still depend on it.</p>
+      <p>CTA operations should conduct service-level audits for all 43 High Risk routes in the next budget cycle, documenting current frequency, span of service, and on-time performance. Outreach to residents in affected neighborhoods should be part of that process; riders know things that schedules don't capture. The audit is what distinguishes a route that needs investment from one that needs restructuring.</p>
+      <p>Knowing which situation applies to each route is the precondition for any spending decision.</p>
+    </div>
+
+    <div class="rec-block">
+      <div class="rec-num">Recommendation 2</div>
+      <h3>Prioritize recovery investment on High Risk routes serving transit-dependent neighborhoods</h3>
+      <p>A route that dropped from 3,000 daily riders to 800 in a neighborhood with low car ownership is a different problem than the same drop in a corridor where most residents drive. The underutilization score treats both the same.</p>
+      <p>The 43 High Risk bus routes should be cross-referenced against census data on vehicle ownership, median income, and commute mode. Routes serving high transit-dependency areas with low recovery should be first in line for targeted investment: increased frequency, extended service hours, or schedule restructuring. If the routes that haven't recovered are concentrated in specific communities, which an equity overlay would show quickly, that's not a data pattern. That's a decision someone made, or failed to make, about who gets reliable transit service.</p>
+    </div>
+
+    <div class="rec-block">
+      <div class="rec-num">Recommendation 3</div>
+      <h3>Investigate the Red Line stations showing near-zero post-COVID ridership</h3>
+      <p>Berwyn and Lawrence stations recorded near-zero boardings across all of 2022&ndash;2024 after carrying roughly 5,600 combined daily riders before COVID. No organic demand shift produces a result like that. Something structural happened.</p>
+      <p>Start with the service logs: were Berwyn and Lawrence actually operating normally during 2022&ndash;2024, or were they closed or running reduced service? If the disruption has since ended, these stations need to be treated as reactivation projects. Former riders don't automatically know when service resumes. Reaching them requires direct outreach in Edgewater and Uptown, not just a schedule update on the CTA website.</p>
+      <p>Set a measurable target, something like returning to 60% of pre-COVID boardings within 18 months of full service restoration, and track monthly boarding data at both stations. If the cause is ongoing and these stations still aren't operating normally, residents in those neighborhoods deserve a public explanation. Two stations losing nearly 6,000 combined daily riders is not a footnote.</p>
+    </div>
+
+    <h2>5. Conclusion</h2>
+
+    <p>Chicago's transit system has recovered from COVID, partially. The system-wide numbers suggest steady progress. Route-level data tells a different story: one in three bus routes and one in three rail stations in this analysis are classified High Risk, carrying a fraction of their pre-COVID ridership with no clear trend toward improvement.</p>
+
+    <p>Automatic cuts would be the wrong response, and so would treating every underperforming route the same way. A route struggling because of poor service quality is a different problem than one in a neighborhood where travel patterns have genuinely shifted. Berwyn and Lawrence are something else entirely, an anomaly the data can flag but can't explain without someone actually digging into it.</p>
+
+    <p>The CTA has the ridership data to see where the gaps are. What's been missing is a framework for acting on them at the route level rather than the system level. This analysis tries to build one.</p>
+
+    <div class="footnote">
+      Data: Chicago Data Portal. Analysis period: 2018&ndash;2019 (pre-COVID baseline) and 2022&ndash;2024 (recovery period). Composite scoring model weights ridership volume, COVID recovery rate, trend direction, and day type consistency on a 0&ndash;100 scale. Full methodology available upon request.
+    </div>
+
+  </main>
+
+</body>
+</html>

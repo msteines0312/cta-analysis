@@ -8,7 +8,7 @@
 
 ## Executive Summary
 
-The CTA's bus system is at 67% of its pre-COVID ridership as of 2024, and that number has barely moved in two years. The system-wide figure looks like progress. Route-level data is less encouraging. This analysis scored 128 bus routes and 143 rail stations using six years of daily ridership data from the Chicago Data Portal and found that 43 bus routes and 48 rail stations qualify as High Risk, carrying a fraction of their pre-COVID ridership with no trend toward recovery. Two Red Line stations, Berwyn and Lawrence, recorded near-zero boardings across all of 2022–2024 after averaging nearly 3,000 daily riders each before COVID. That's not a demand story. The right response isn't automatic service cuts. It starts with figuring out why these routes haven't recovered: auditing service levels on High Risk corridors, cross-referencing with equity data to find the communities most exposed, and treating the gap as a policy problem that requires a specific answer.
+The CTA's bus system is at 67% of its pre-COVID ridership as of 2024, and that number has barely moved in two years. The system-wide figure looks like progress. Route-level data is less encouraging. This analysis scored 128 bus routes and 143 rail stations using six years of daily ridership data from the Chicago Data Portal and found that 43 bus routes and 48 rail stations qualify as High Risk, carrying a fraction of their pre-COVID ridership with no trend toward recovery. Two Red Line stations, Berwyn and Lawrence, recorded near-zero boardings across all of 2022–2024 after averaging nearly 3,000 daily riders each before COVID. That's not a demand story. The first step is figuring out why these routes haven't recovered: auditing service levels on High Risk corridors, cross-referencing with equity data to find the communities most exposed, and treating the gap as a policy problem that requires a specific answer.
 
 ---
 
@@ -94,14 +94,14 @@ One route worth calling out specifically is Route 52. With roughly 5,000 daily r
 
 Rail tells a more extreme version of the same story. Berwyn station on the Red Line averaged 2,845 daily boardings in 2018–2019. In the 2022–2024 period, it recorded zero. Lawrence station, also on the Red Line, averaged 2,762 daily boardings before COVID and similarly recorded near-zero in the recovery period.
 
-A drop to zero at two stations on a major north-south line isn't a demand story. Stations don't go from nearly 3,000 daily riders to nothing because people decided to drive. This almost certainly reflects a service disruption (renovation, closure, or a schedule gap) that the ridership data can't explain on its own. The data can tell us something stopped working at these stations. It can't tell us what.
+A drop to zero at two stations on a major north-south line has nothing to do with changing rider behavior. Stations don't go from nearly 3,000 daily riders to nothing because people decided to drive. This almost certainly reflects a service disruption (renovation, closure, or a schedule gap) that the ridership data can't explain on its own. The data can tell us something stopped working at these stations. It can't tell us what.
 
 **Moderate-tier routes**
 
 The middle tier is less dramatic but harder to read. Recovery rates range from roughly 40% to 65% of pre-COVID levels. Some routes here are trending upward. Others have been flat since 2022. Without service-level data, it's hard to say whether these routes are on a path back toward their old ridership or whether 50–60% is the new normal.
 
 ![Figure 5: Post-COVID Ridership by Day Type](brief_images/fig5_day_type.png)
-*Figure 5: Stacked bars show how ridership breaks down by day type. Routes like 156 show stronger weekend demand relative to weekday — a restructuring signal.*
+*Figure 5: Stacked bars show how ridership breaks down by day type. Routes like 156 show stronger weekend demand relative to weekday, which points to restructuring rather than cuts.*
 
 Route 156 is the clearest restructuring candidate in the dataset. Weekday ridership has barely recovered, but Saturday and Sunday boardings are holding relatively steady. The riders are still there; they're just not commuting. Running a standard weekday-heavy schedule for a route that has shifted toward weekend use is a mismatch between service design and actual demand. This route probably doesn't need to be cut. It needs to be redesigned.
 
@@ -149,7 +149,7 @@ Chicago's transit system has recovered from COVID, partially. The system-wide nu
 
 Automatic cuts would be the wrong response, and so would treating every underperforming route the same way. A route struggling because of poor service quality is a different problem than one in a neighborhood where travel patterns have genuinely shifted. Berwyn and Lawrence are something else entirely, an anomaly the data can flag but can't explain without someone actually digging into it.
 
-The CTA has the ridership data to see where the gaps are. What's been missing is a framework for acting on them at the route level rather than the system level. This analysis is meant to be that starting point.
+The CTA has the ridership data to see where the gaps are. What's been missing is a framework for acting on them at the route level rather than the system level. This analysis tries to build one.
 
 ---
 
