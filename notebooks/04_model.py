@@ -71,6 +71,11 @@ def score_routes(df):
 
     # assign tier based on score percentile within this dataset
     # top third = High Risk, middle = Moderate, bottom = Stable
+    #
+    # routes/stations missing a pre- or post-COVID average (new routes, discontinued
+    # routes, renamed stations) have NaN 'score' and qcut leaves their tier as NaN too —
+    # this is what drops the row count from "all routes in the export" down to the
+    # "routes with complete data" figure quoted in the policy brief
     df['tier'] = pd.qcut(df['score'], q=3, labels=['Stable', 'Moderate', 'High Risk'])
 
     return df

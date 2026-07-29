@@ -11,12 +11,16 @@ data/
 # Outputs — exports are generated, not source; figures are committed
 outputs/exports/
 
-# Project-specific — tasks and src are internal
+# Project-specific — tasks are internal
 tasks/
-src/
 docs/tableau_viz_guide.md
 
 # OS / editor noise
 .DS_Store
 Thumbs.db
 .vscode/
+
+# Node — used locally to screenshot the Tableau dashboard via Puppeteer, not part of the Python pipeline
+node_modules/
+package.json
+package-lock.json
