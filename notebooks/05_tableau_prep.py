@@ -1,8 +1,8 @@
 # Stage 5: Tableau Export Prep
 # Reshapes and combines data into Tableau-ready CSVs saved to outputs/exports/tableau/
 # Two outputs:
-#   1. bus_ridership_combined.csv  — full time series (2018–2024) in one file for trend viz
-#   2. bus_daytype_long.csv        — daytype breakdown reshaped from wide to long for bar chart
+#   1. bus_ridership_combined.csv: system-wide daily totals (2018–2024) in one file for the trend viz
+#   2. bus_daytype_long.csv: daytype breakdown reshaped from wide to long for bar chart
 
 import os
 import pandas as pd
@@ -26,7 +26,7 @@ bus = pd.concat([
 bus["date"] = pd.to_datetime(bus["date"])
 
 # Aggregate to system-wide daily totals for the trend line viz.
-# Tableau will also have the route-level rows available for drill-down.
+# Route-level detail isn't exported here; Tableau gets it from the scored CSVs instead.
 bus_daily = (
     bus.groupby("date", as_index=False)["rides"]
     .sum()
@@ -37,7 +37,7 @@ bus_daily["period"] = bus_daily["date"].apply(
 )
 
 bus_daily.to_csv(os.path.join(export_dir, "bus_ridership_combined.csv"), index=False)
-print(f"bus_ridership_combined.csv  — {len(bus_daily):,} rows")
+print(f"bus_ridership_combined.csv: {len(bus_daily):,} rows")
 
 # ── 2. daytype breakdown: wide → long ─────────────────────────────────────────
 # Source file has one column per daytype (Weekday, Saturday, Sunday/Holiday).
@@ -60,6 +60,6 @@ active_routes = routes_with_rides[routes_with_rides > 0].index
 daytype_long = daytype_long[daytype_long["route"].isin(active_routes)]
 
 daytype_long.to_csv(os.path.join(export_dir, "bus_daytype_long.csv"), index=False)
-print(f"bus_daytype_long.csv        — {len(daytype_long):,} rows")
+print(f"bus_daytype_long.csv: {len(daytype_long):,} rows")
 
 print("\nAll Tableau exports written to outputs/exports/tableau/")

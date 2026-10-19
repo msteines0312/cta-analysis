@@ -1,10 +1,9 @@
-# step 2: Data Cleaning
-# loads raw data from data/raw/, handles missing values, standardizes types,and writes clean output to data/processed/
+# Stage 2: Data Cleaning
+# loads raw data from data/raw/, handles missing values, standardizes types, and writes clean output to data/processed/
 
 #imports
 import os
 import pandas as pd
-import numpy as np
 
 def clean_data(input_path, output_path, period):
     """
@@ -17,7 +16,7 @@ def clean_data(input_path, output_path, period):
     output_path : str
         Path where the cleaned CSV file should be saved
     period : str
-        Label for which time window this data belongs to — 'pre' or 'post'
+        Label for which time window this data belongs to: 'pre' or 'post'
     """
     # load raw data
     df = pd.read_csv(input_path)
@@ -25,14 +24,14 @@ def clean_data(input_path, output_path, period):
     # convert date column to datetime, coerce errors to NaT
     df['date'] = pd.to_datetime(df['date'], errors='coerce')
 
-    # fill missing rides with 0 — treating missing as unreported rather than zero is a judgment call,
-    # but there are very few nulls here and 0 is conservative for an underutilization analysis
+    # fill missing rides with 0. a missing value could mean "not reported" rather than "nobody rode",
+    # so this is a judgment call, but the 2018-2024 pulls contain no nulls at all; this is a safeguard
     df['rides'] = df['rides'].fillna(0)
 
     # ensure 'rides' is an integer type
     df['rides'] = df['rides'].astype(int)
 
-    # station_id only exists in the rail dataset — cast it if it's there
+    # station_id only exists in the rail dataset, so cast it only if it's there
     if 'station_id' in df.columns:
         df['station_id'] = df['station_id'].astype(int)
 
@@ -46,6 +45,7 @@ def clean_data(input_path, output_path, period):
 # build paths relative to this script so it works from any working directory
 raw_dir = os.path.join(os.path.dirname(__file__), "..", "data", "raw")
 processed_dir = os.path.join(os.path.dirname(__file__), "..", "data", "processed")
+os.makedirs(processed_dir, exist_ok=True)  # data/ is gitignored, so create it on a fresh clone
 
 print("Cleaning bus pre-COVID...")
 clean_data(

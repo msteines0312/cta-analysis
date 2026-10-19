@@ -34,7 +34,7 @@ def score_routes(df):
       - absolute ridership drop        : 20%  (high drop      = more underutilized)
 
     The drop signal is down-weighted because large routes naturally shed more
-    riders in absolute terms — raw volume alone shouldn't dominate the ranking.
+    riders in absolute terms, and raw volume alone shouldn't dominate the ranking.
 
     Parameters
     ----------
@@ -54,7 +54,7 @@ def score_routes(df):
             return pd.Series(0.5, index=series.index)
         return (series - lo) / (hi - lo)
 
-    # normalize each signal — flip post and recovery so high normalized value = bad
+    # normalize each signal, flipping post and recovery so a high normalized value = bad
     norm_post     = 1 - minmax(df['post'])          # low ridership is worse
     norm_recovery = 1 - minmax(df['recovery_pct'])  # low recovery is worse
     norm_drop     = minmax(df['drop'])               # high drop is worse
@@ -71,9 +71,11 @@ def score_routes(df):
 
     # assign tier based on score percentile within this dataset
     # top third = High Risk, middle = Moderate, bottom = Stable
+    # tiers are relative: equal-sized thirds by construction, so the tier counts describe
+    # where a route ranks against its peers, not how many routes cross a fixed threshold
     #
     # routes/stations missing a pre- or post-COVID average (new routes, discontinued
-    # routes, renamed stations) have NaN 'score' and qcut leaves their tier as NaN too —
+    # routes, renamed stations) have NaN 'score' and qcut leaves their tier as NaN too.
     # this is what drops the row count from "all routes in the export" down to the
     # "routes with complete data" figure quoted in the policy brief
     df['tier'] = pd.qcut(df['score'], q=3, labels=['Stable', 'Moderate', 'High Risk'])

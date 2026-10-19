@@ -4,7 +4,6 @@
 
 import os
 import pandas as pd
-import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.ticker as mticker
 
@@ -13,6 +12,10 @@ base_dir     = os.path.dirname(__file__)
 processed    = os.path.join(base_dir, "..", "data", "processed")
 fig_dir      = os.path.join(base_dir, "..", "outputs", "figures")
 export_dir   = os.path.join(base_dir, "..", "outputs", "exports")
+
+# outputs/exports/ is gitignored, so it won't exist on a fresh clone
+os.makedirs(fig_dir, exist_ok=True)
+os.makedirs(export_dir, exist_ok=True)
 
 # ── load data ────────────────────────────────────────────────────────────────
 bus = pd.concat([
@@ -86,7 +89,7 @@ print("Saved: bus_top20_drops.png")
 
 
 # ── Q3: recovery rate % by bus route ─────────────────────────────────────────
-# % of pre-COVID ridership each route has gotten back — this separates
+# % of pre-COVID ridership each route has gotten back. this separates
 # "always small" routes from "used to matter, now doesn't"
 bus_avg['recovery_pct'] = (bus_avg['post'] / bus_avg['pre'] * 100).round(1)
 worst_recovery = bus_avg['recovery_pct'].dropna().sort_values().head(20)
@@ -126,8 +129,8 @@ print("Saved: rail_bottom20_post.png")
 
 
 # ── Q5: ridership by day type (bus, post-COVID) ───────────────────────────────
-# some routes may be weekday-only in practice even if scheduled 7 days —
-# useful for targeted service reduction recommendations
+# some routes may be weekday-only in practice even if scheduled 7 days,
+# which is useful for targeted service reduction recommendations
 daytype_avg = (
     bus[bus['period'] == 'post']
     .groupby(['route', 'daytype'])['rides']
@@ -136,14 +139,14 @@ daytype_avg = (
     .rename(columns={'W': 'Weekday', 'A': 'Saturday', 'U': 'Sunday/Holiday'})
     .fillna(0)
 )
-# just show the bottom 30 routes by total ridership to keep the chart readable
+# reuse the 20 least-ridden routes from Q1 to keep the chart readable
 low_ridership_routes = bus_post_avg.index.tolist()
 daytype_subset = daytype_avg.loc[daytype_avg.index.isin(low_ridership_routes)]
 
 fig, ax = plt.subplots(figsize=(10, 7))
 daytype_subset.plot(kind='barh', stacked=True, ax=ax,
                     color=['steelblue', 'coral', 'mediumseagreen'])
-ax.set_title("Day Type Breakdown — Least-Ridden Bus Routes (Post-COVID)", fontweight='bold')
+ax.set_title("Day Type Breakdown: Least-Ridden Bus Routes (Post-COVID)", fontweight='bold')
 ax.set_xlabel("Average Daily Boardings")
 ax.set_ylabel("Route")
 ax.legend(title="Day Type", bbox_to_anchor=(1.01, 1), loc='upper left')
@@ -154,7 +157,7 @@ print("Saved: bus_daytype_breakdown.png")
 
 
 # ── Q6: system-wide ridership trend over time (monthly, bus) ──────────────────
-# big-picture context for the brief — shows the COVID dip and partial recovery arc
+# big-picture context for the brief: shows the COVID dip and partial recovery arc
 bus['month'] = bus['date'].dt.to_period('M')
 monthly = bus.groupby('month')['rides'].sum().reset_index()
 monthly['month_dt'] = monthly['month'].dt.to_timestamp()
@@ -188,7 +191,7 @@ x = range(1, len(cumulative_share) + 1)
 fig, ax = plt.subplots(figsize=(10, 5))
 ax.plot(list(x), cumulative_share.values, color='steelblue', linewidth=2)
 ax.axhline(80, color='gray', linestyle='--', linewidth=1, label='80% of ridership')
-ax.set_title("Ridership Concentration — Bus Routes (Post-COVID)", fontweight='bold')
+ax.set_title("Ridership Concentration: Bus Routes (Post-COVID)", fontweight='bold')
 ax.set_xlabel("Number of Routes (ranked by ridership)")
 ax.set_ylabel("Cumulative % of Total Ridership")
 ax.legend()
